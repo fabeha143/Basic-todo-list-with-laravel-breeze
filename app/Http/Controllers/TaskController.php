@@ -10,10 +10,23 @@ class TaskController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    // public function index()
+    // {
+    //     return view('todo.index')->with('tasks', Task::where('user_id', auth()->id())->orderBy('id', 'desc')->get());
+    // }
+    public function index(Request $request)
     {
-        return view('todo.index')->with('tasks', Task::where('user_id', auth()->id())->orderBy('id', 'desc')->get());
+        $query = Task::where('user_id', auth()->id());
+        
+        if ($request->has('status') && $request->status !== '') {
+            $query->where('status', $request->status);
+        }
+
+        $tasks = $query->orderBy('id', 'desc')->get();
+
+        return view('todo.index', compact('tasks'));
     }
+
 
     /**
      * Show the form for creating a new resource.

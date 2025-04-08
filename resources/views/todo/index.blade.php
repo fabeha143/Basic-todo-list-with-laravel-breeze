@@ -30,7 +30,22 @@
                     </div>
                 </div>
             </div>
-
+            {{-- Filter Dropdown --}}
+            <div class="row justify-content-center mb-4">
+                <div class="col-md-6 col-lg-4">
+                    <form method="GET" action="{{ route('todo.index') }}">
+                        <div class="input-group">
+                            <select name="status" class="form-select" onchange="this.form.submit()">
+                                <option value="">Filter by Status</option>
+                                <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>Pending</option>
+                                <option value="in-progress" {{ request('status') == 'in-progress' ? 'selected' : '' }}>In Progress</option>
+                                <option value="completed" {{ request('status') == 'completed' ? 'selected' : '' }}>Completed</option>
+                            </select>
+                            <button class="btn btn-outline-secondary" type="submit">Search</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
             {{-- Task List --}}
             <div class="row justify-content-center">
                 <div class="col-md-10 col-lg-8">
